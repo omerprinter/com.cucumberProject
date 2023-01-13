@@ -20,8 +20,6 @@ public class QualitydemyStepdefinitions {
     public void kullanici_kutusuna_yazar(String istenenUsername) throws InterruptedException {
 
         qualitydemyPage.kullaniciEmailKutusu.sendKeys(ConfigReader.getProperty(istenenUsername));
-        Thread.sleep(5000);
-
 
     }
     @Then("password kutusuna {string} yazar")
@@ -49,5 +47,15 @@ public class QualitydemyStepdefinitions {
         if (qualitydemyPage.cookie.isDisplayed()){
             qualitydemyPage.cookie.click();
         }
+    }
+
+    @And("kullanici kutusuna manuel olarak {string} yazar")
+    public void kullaniciKutusunaManuelOlarakYazar(String username) {
+        qualitydemyPage.kullaniciEmailKutusu.sendKeys(username);
+    }
+
+    @And("password kutusuna manuel olarak {string} yazar")
+    public void passwordKutusunaManuelOlarakYazar(String password) {
+        qualitydemyPage.passwordKutusu.sendKeys(password);
     }
 }
