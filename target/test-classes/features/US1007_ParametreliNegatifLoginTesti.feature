@@ -1,6 +1,6 @@
 
 Feature: US1007 Kullanici yanlis bilgilerle giris yapamaz
-
+  @smoke
   Scenario: TC10 Gecerli kullanici adi ve gecersiz sifre ile negatif Login Testi
 
     Given kullanici "qdUrl" anasayfaya gider

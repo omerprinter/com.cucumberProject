@@ -1,5 +1,5 @@
 Feature: US1009 Yanlis kullanici adi ve password listesi ile negatif login testi
-
+  @smoke
   Scenario Outline: : TC14 yanlis kullanici listesi ile amazonda arama yapılamamali
 
     Given kullanici "qdUrl" anasayfaya gider
