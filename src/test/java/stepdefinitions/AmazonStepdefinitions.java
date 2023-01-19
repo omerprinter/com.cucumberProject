@@ -5,9 +5,13 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import pages.AmazonPage;
 import utilities.ConfigReader;
 import utilities.Driver;
+import utilities.ReusableMethods;
+
+import java.util.List;
 
 public class AmazonStepdefinitions {
 
@@ -98,6 +102,54 @@ public class AmazonStepdefinitions {
     public void urlDeOldugunuTestEder(String arananKelime) {
         String actualUrl=Driver.getDriver().getCurrentUrl();
         Assert.assertTrue(actualUrl.contains(arananKelime));
+
+    }
+
+    @And("cikan urunler icinde {string} oldugunu test eder")
+    public void cikanUrunlerIcindeOldugunuTestEder(String arananUrun) {
+
+        List<WebElement> sonucUrunIsimElementleriList= amazonPage.sonucUrunIsimElementleriList;
+
+        List<String> sonucUrunIsimleriListStr= ReusableMethods.getElementsText(sonucUrunIsimElementleriList);
+
+        // Assert.assertTrue(sonucUrunIsimleriListStr.contains(arananUrun));
+
+        boolean iceriyorMu=false;
+
+        for (String each:sonucUrunIsimleriListStr) {
+            if (each.contains(arananUrun)){
+                iceriyorMu=true;
+                break;
+            }
+
+        }
+        Assert.assertTrue(iceriyorMu);
+
+    }
+
+    @And("cikan urunlerden {string} kelimesi icerenlerin fiyat ortalamasinin {int} tl altında oldugunu test eder")
+    public void cikanUrunlerdenKelimesiIcerenlerinFiyatOrtalamasininTlAltındaOldugunuTestEder(String arananUrun, int ostalamaFiyat) {
+        List<WebElement> aramaSonucDetayliIsimelementleriListesi=amazonPage.aramaSonucDetayliIsimElementleriList;
+
+        int siraNo=1;
+        int toplamFiyat=0;
+        for (WebElement each:aramaSonucDetayliIsimelementleriListesi ) {
+            String urunFiyatiStr= each.getText();
+            urunFiyatiStr=urunFiyatiStr.replaceAll("\\D","");
+
+            System.out.println(siraNo+" ---- "+urunFiyatiStr);
+            siraNo++;
+
+            Integer urunFiyatiInt=Integer.parseInt(urunFiyatiStr);
+            toplamFiyat+=urunFiyatiInt;
+        }
+        double actualOrtalamaFiyat=(double) toplamFiyat/(siraNo*100);
+        System.out.println(actualOrtalamaFiyat);
+
+        Assert.assertTrue(actualOrtalamaFiyat<ostalamaFiyat);
+
+
+
 
     }
 }

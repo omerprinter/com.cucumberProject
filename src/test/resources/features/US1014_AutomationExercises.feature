@@ -1,5 +1,5 @@
 Feature: US1014 Auromation exercise sitesinde kullanici olusturma
-  @wip
+
   Scenario: TC19 Kullanici Auromation exercise sayfasinda kullanici olusturabilmneli
 
 
